@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninjia Money</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: "Comic Sans MS",cursive; ;
+        }
+        .background{
+            padding: 20px;
+        }
+        .head{
+            width: fit-content;
+            margin: 10px;
+            display: inline-block;
+        }
+        .gold{
+            display: inline-block;
+            border: black solid 1px;
+            width: 120px;
+            padding: 5px 10px 5px 10px;
+        }
+        .location{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .location form{
+            width: 22%;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            border: black solid 2px;
+            margin: 10px 0 10px 0;
+        }
+        .location form button{
+            box-shadow: 5px 5px;
+            border: black solid 2px;
+            padding: 5px 20px 5px 20px;
+            margin-bottom: 50px;
+        }
+        .activities{
+            border: black solid 2px;
+            min-height: 300px;
+            padding: 20px;
+        }
+        .gain{
+            color: green;
+        }
+        .lost{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+<div class="background">
+    <p class='head'>Your Gold:</p>
+    <div class='gold'>{{gold}}</div> 
+    <div class="location">
+        <form action="/process_money" method="post">
+            {% csrf_token %}
+            <h3>Fram</h3>
+            <p>(earns 10-20 golds)</p>
+            <input type="hidden" name="location" value="farm">
+            <button type="submit">Find Gold!</button>
+        </form>
+        <form action="/process_money" method="post">
+            {% csrf_token %}
+            <h3>Cave</h3>
+            <p>(earns 5-10 golds)</p>
+            <button type="submit" name="location" value="cave">Find Gold!</button>
+        </form>
+        <form action="/process_money" method="post">
+            {% csrf_token %}
+            <h3>House</h3>
+            <p>(earns 2-5 golds)</p>
+            <button type="submit" name="location" value="house">Find Gold!</button>
+        </form>
+        <form action="/process_money" method="post">
+            {% csrf_token %}
+            <h3>Casino</h3>
+            <p>(earns/loses 0-50 golds)</p>
+            <button type="submit" name="location" value="casino">Find Gold!</button>
+        </form>
+    </div>
+    <p>Activities:</p>
+    <div class="activities">
+        {% for i in activities%}
+        <p class={{i.class}}>{{i.log}}</p> 
+        {% endfor %}
+    </div>
+</div>    
+</body>
+</html>
